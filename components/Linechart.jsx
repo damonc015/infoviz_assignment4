@@ -97,15 +97,13 @@ const Linechart = ({ data }) => {
       .attr('r', 5)
       .attr('fill', '#4682b4');
 
-    // Highlight the 2018 point
     const lastDataPoint = data[data.length - 1];
     
-    // Create annotation group
+    // annotation arrow at 2018
     const annotation = svg.append('g')
       .attr('class', 'annotation')
       .attr('transform', `translate(${xScale(lastDataPoint.year)},${yScale(lastDataPoint.total)})`);
 
-    // Add annotation line
     annotation.append('line')
       .attr('x1', 0)
       .attr('y1', 0)
@@ -114,8 +112,6 @@ const Linechart = ({ data }) => {
       .attr('stroke', '#FF4136')
       .attr('stroke-width', 2)
       .attr('marker-end', 'url(#arrow)');
-
-    // Add arrow marker definition
     svg.append('defs').append('marker')
       .attr('id', 'arrow')
       .attr('viewBox', '0 -5 10 10')
@@ -128,7 +124,6 @@ const Linechart = ({ data }) => {
       .attr('d', 'M0,-5L10,0L0,5')
       .attr('fill', '#FF4136');
 
-    // Add annotation text
     annotation.append('text')
       .attr('x', 60)
       .attr('y', -55)
@@ -144,7 +139,6 @@ const Linechart = ({ data }) => {
       .attr('dy', (d, i) => i === 0 ? 0 : '1.2em')
       .text(d => d);
 
-    // Highlight the 2018 point
     svg.append('circle')
       .attr('cx', xScale(lastDataPoint.year))
       .attr('cy', yScale(lastDataPoint.total))
@@ -153,7 +147,6 @@ const Linechart = ({ data }) => {
       .attr('stroke', 'white')
       .attr('stroke-width', 2);
 
-    // Add animation for the annotation
     gsap.from('.annotation', {
       opacity: 0,
       y: 20,
