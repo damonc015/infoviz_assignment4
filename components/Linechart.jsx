@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import gsap from 'gsap';
 
 const Linechart = ({ data }) => {
   const svgRef = useRef(null);
@@ -95,6 +96,75 @@ const Linechart = ({ data }) => {
       .attr('cy', d => yScale(d.total))
       .attr('r', 5)
       .attr('fill', '#4682b4');
+
+    // Highlight the 2018 point
+    const lastDataPoint = data[data.length - 1];
+    
+    // Create annotation group
+    const annotation = svg.append('g')
+      .attr('class', 'annotation')
+      .attr('transform', `translate(${xScale(lastDataPoint.year)},${yScale(lastDataPoint.total)})`);
+
+    // Add annotation line
+    annotation.append('line')
+      .attr('x1', 0)
+      .attr('y1', 0)
+      .attr('x2', 50)
+      .attr('y2', -50)
+      .attr('stroke', '#FF4136')
+      .attr('stroke-width', 2)
+      .attr('marker-end', 'url(#arrow)');
+
+    // Add arrow marker definition
+    svg.append('defs').append('marker')
+      .attr('id', 'arrow')
+      .attr('viewBox', '0 -5 10 10')
+      .attr('refX', 8)
+      .attr('refY', 0)
+      .attr('markerWidth', 6)
+      .attr('markerHeight', 6)
+      .attr('orient', 'auto')
+      .append('path')
+      .attr('d', 'M0,-5L10,0L0,5')
+      .attr('fill', '#FF4136');
+
+    // Add annotation text
+    annotation.append('text')
+      .attr('x', 60)
+      .attr('y', -55)
+      .attr('text-anchor', 'start')
+      .attr('fill', '#FF4136')
+      .style('font-weight', 'bold')
+      .style('font-size', '14px')
+      .selectAll('tspan')
+      .data(['All-time high:', `${lastDataPoint.total.toFixed(1)} deaths`, 'per 100,000'])
+      .enter()
+      .append('tspan')
+      .attr('x', 60)
+      .attr('dy', (d, i) => i === 0 ? 0 : '1.2em')
+      .text(d => d);
+
+    // Highlight the 2018 point
+    svg.append('circle')
+      .attr('cx', xScale(lastDataPoint.year))
+      .attr('cy', yScale(lastDataPoint.total))
+      .attr('r', 8)
+      .attr('fill', '#FF4136')
+      .attr('stroke', 'white')
+      .attr('stroke-width', 2);
+
+    // Add animation for the annotation
+    gsap.from('.annotation', {
+      opacity: 0,
+      y: 20,
+      duration: 1,
+      scrollTrigger: {
+        trigger: svgRef.current,
+        start: 'top center',
+        toggleActions: 'play none none reverse'
+      }
+    });
+
   }, [data]);
 
   return (

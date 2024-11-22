@@ -18,6 +18,19 @@ const Container = () => {
         gsap.registerPlugin(ScrollTrigger, useGSAP);
     }
 
+    // reset scroll on refresh
+    useEffect(() => {
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        };
+
+        window.scrollTo(0, 0);
+
+        return () => {
+            window.onbeforeunload = null;
+        };
+    }, []);
+
     const [data, setData] = useState(null)
     const containerRef = useRef(null);
 

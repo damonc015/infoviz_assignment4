@@ -142,3 +142,16 @@ a {
   pointer-events: all !important;
 }
 
+.annotation {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.annotation text {
+  font-family: Arial, sans-serif;
+}
+
+.annotation line {
+  stroke-dasharray: 5,5;
+}
+
