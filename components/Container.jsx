@@ -127,7 +127,7 @@ const Container = () => {
                 trigger: containerRef.current,
                 start: () => `${index * 100}% top`,
                 end: () => `${(index + 1) * 100}% top`,
-                markers: true,
+                markers: false,
                 onEnter: () => gsap.to(section, { 
                     opacity: 1, 
                     duration: 0.3,
