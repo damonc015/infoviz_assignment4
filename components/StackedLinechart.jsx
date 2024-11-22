@@ -126,8 +126,10 @@ const StackedLinechart = ({ title, data }) => {
             .call(yAxis)
             .append('text')
             .attr('transform', 'rotate(-90)')
-            .attr('y', -40)
+            .attr('y', -60)
+            .attr('x', -innerHeight / 2)
             .attr('fill', 'black')
+            .attr('text-anchor', 'middle')
             .text('Number of Deaths');
 
         const legend = svg.append('g')
