@@ -117,7 +117,7 @@ const Container = () => {
                     return acc;
                 }, []);
 
-                console.log(aggregatedData);
+                // console.log(aggregatedData);
                 setData(aggregatedData);
             })
             .catch(error => console.error('Error loading the data:', error));
@@ -171,7 +171,7 @@ const Container = () => {
             <div ref={containerRef} className="container">
                 {/* Intro to number of suicides per year */}
                 <div className="scroll-section" style={{flexDirection: "column"}}>
-                    <h1 className="circle-title">In 2018, 1.48% of deaths in the US were from suicide</h1>
+                    <h1 className="circle-title">In 2018, 1.4% of deaths in the US were from suicide</h1>
                     <Circlegrid/>
                 </div>
                 {/* Historic high of suicides per year */}
